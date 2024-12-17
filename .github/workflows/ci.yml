@@ -1,0 +1,45 @@
+name: CI Workflow for Vue.js
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Use an Ubuntu machine for the runner
+
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Set Up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Use Node.js version 20 or adjust as needed
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Step 4: Run linting
+      - name: Run ESLint
+        run: npm run lint
+
+      # Step 5: Run unit tests (if configured)
+      - name: Run Tests
+        run: npm run test
+
+      # Step 6: Build the Vue.js app
+      - name: Build Project
+        run: npm run build
+
+      # Step 7: Store build artifacts (optional)
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/  # Upload Vue production build folder
