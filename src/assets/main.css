@@ -1,0 +1,28 @@
+@import './base.css';
+
+.dark-blue{
+  color: darkblue;
+}
+
+.success-btn{
+  color: white !important;
+  background-color: darkblue !important;
+}
+
+.cancel-btn{
+  color: black !important;
+  background-color: white;
+}
+.icon{
+ 
+  border: none;
+  font-size: 20px !important;
+  color: darkblue !important;
+  background-color: inherit;
+  border-radius: 20px;
+}
+@media (min-width: 768px) {
+  :root {
+      --pico-font-size: 90.5%;
+  }
+}
