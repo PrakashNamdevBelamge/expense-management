@@ -41,11 +41,11 @@ export const ExpenseService = {
       return false;
     }
   },
-  async updateExpense(employee) {
+  async updateExpense(expense) {
     try {
       const response = await axios.put(
-        `${API_BASE_URL}/${employee.id}`,
-        employee
+        `${API_BASE_URL}/${expense.id}`,
+        expense
       );
       return response.data;
     } catch (error) {
