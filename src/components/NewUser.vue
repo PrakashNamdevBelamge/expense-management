@@ -33,7 +33,7 @@ const formBuild = ref({
                 return 'Password is required.'
             },
             value => {
-                if (value.length > 6) return true
+                if (value.length >= 6) return true
                 return 'Minimum length is 6.'
             }
         ]

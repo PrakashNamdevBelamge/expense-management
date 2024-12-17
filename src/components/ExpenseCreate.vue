@@ -28,12 +28,14 @@ const backToList = (response) => {
     onConfirm.value = false;
 }
 const save = () => {
+    const inputDate = new Date(formBuilder.value.date.date);
+    inputDate.setDate(inputDate.getDate() + 1);
     const savedata = {
         title: formBuilder.value.title.title,
         amount: formBuilder.value.amount.amount,
         id: formBuilder.value.id,
         category: formBuilder.value.category.category,
-        date: formBuilder.value.date.date,
+        date: new Date(inputDate).toISOString().split('T')[0],
         userId: useUserStore.user[0].id
     }
     saveRecord(savedata);
@@ -110,7 +112,7 @@ if (router.currentRoute.value.params?.id) {
     formBuilder.value.id = id
     formBuilder.value.amount = { amount: data.value.amount }
     formBuilder.value.category = { category: data.value.category }
-    formBuilder.value.date = { date: data.value.date }
+    formBuilder.value.date = { date: new Date(data.value.date) }
 }
 
 watch(formBuilder.value, (data) => {
