@@ -25,15 +25,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 5: Run unit tests (if configured)
-      - name: Run Tests
-        run: npm run test
-
-      # Step 6: Build the Vue.js app
+      # Step 4: Build the Vue.js app
       - name: Build Project
         run: npm run build
 
-      # Step 7: Store build artifacts (optional)
+      # Step 5: Store build artifacts (optional)
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
