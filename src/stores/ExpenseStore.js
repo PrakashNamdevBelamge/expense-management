@@ -20,7 +20,6 @@ export const useExpenseStore = defineStore('expStore', {
     },
         async addExpense(emp) {
            const employee =  await ExpenseService.addExpense(emp);
-           debugger;
            if(employee){
            this.employees.push(employee);
            }

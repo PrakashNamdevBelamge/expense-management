@@ -1,14 +1,16 @@
 <template>
-  <div>
-    <RouterLink to="/expenses">
-                <v-btn class="success-btn" style="padding: 10px 10px;margin-right: 20px;">
-                    Back To List
-                </v-btn>
-            </RouterLink>
+  <div style="margin-top: 60px;">
+    
+                <h4 @click="backToList"  class="back-btn">
+                    <- Back To List
+                </h4>
+            
   </div>
-    <div>
+    <v-card>
+      <v-card-title class="card-title dark-blue">Expense Report</v-card-title>
+
       <canvas id="pieChart"></canvas>
-    </div>
+    </v-card>
   </template>
   
   <script setup>
@@ -16,7 +18,9 @@
   import { Chart, registerables } from 'chart.js';
   import { useExpenseStore } from '../stores/ExpenseStore'
   import { userStore } from '../stores/UserStore'
+  import { useRouter } from 'vue-router';
 
+  const router = useRouter();
   const useUserStore = userStore();
   const expenseStore = useExpenseStore();
   Chart.register(...registerables);
@@ -58,16 +62,28 @@ openChart();
     },
   });
   }
-
+const backToList = () =>{
+  router.push({path:'/expenses'})
+}
   
   </script>
   
   <style scoped>
  canvas {
-  width: 500px;
+  width: 400px;
   height: 400px;
-  max-width: 500px;
+  max-width: 400px;
   margin: auto;
+}
+.card-title {
+    font-weight: bold !important;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}
+.back-btn{
+  padding: 10px 10px;
+  margin-right: 20px;
+  color: darkblue
 }
 </style>
   
