@@ -1,4 +1,5 @@
 import ExpenseCreate from "@/components/ExpenseCreate.vue";
+import ExpenseList from "@/components/ExpenseList.vue";
 import ExpenseMain from "@/components/ExpenseMain.vue";
 import ExpenseReports from "@/components/ExpenseReports.vue";
 import ForgotPassword from "@/components/ForgotPassword.vue";
@@ -6,12 +7,7 @@ import Login from "@/components/Login.vue";
 import NewUser from "@/components/NewUser.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-function isLoggedIn() {
-  const userStore = localStorage.getItem('userData');
-  console.log(userStore);
-   if(userStore) return false
-   return true;
-}
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,13 +16,7 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
-    //   beforeEnter: (to, from, next) => {
-    //     if (isLoggedIn()) {
-    //         next({ path: "/login" });
-    //     } else {
-    //         next({ path: "/expenses" });
-    //     }
-    // }
+
     },
     {
       path: "/newuser",
@@ -42,22 +32,29 @@ const router = createRouter({
       path: "/expenses",
       name: "home",
       component: ExpenseMain,
-    },
-    
-    {
-      path: "/expenses/create",
-      name: "create",
-      component: ExpenseCreate,
-    },
-    {
-      path: "/expenses/edit/:id",
-      name: "edit",
-      component: ExpenseCreate,
-    },
-    {
-      path: "/expenses/reports",
-      name: "reports",
-      component: ExpenseReports,
+      
+      children: [
+        {
+          path: "",
+          name: "list",
+          component: ExpenseList,
+        },
+        {
+          path: "create",
+          name: "create",
+          component: ExpenseCreate,
+        },
+        {
+          path: "edit/:id",
+          name: "edit",
+          component: ExpenseCreate,
+        },
+        {
+          path: "reports",
+          name: "reports",
+          component: ExpenseReports,
+        },
+      ]
     },
     {
       path: "/:pathMatch(.*)*",
@@ -66,5 +63,14 @@ const router = createRouter({
     },
   ],
 });
+router.beforeEach((to, from, next) => {
+  const authStore = localStorage.getItem('userData') ? true : false;
+  const publicPaths = ["/login", "/newuser", "/forgotpassword"];
 
+  if (!publicPaths.includes(to.path) && !authStore) {
+    next("/login");
+  } else {
+    next();
+  }
+});
 export default router;
