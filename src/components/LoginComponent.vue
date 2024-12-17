@@ -45,7 +45,7 @@ console.log(encodedPassword);
 
     <div class="container">
         <v-card class="card-width">
-            <v-card-title class="card-title dark-blue"><span> Employee Login</span></v-card-title>
+            <v-card-title class="card-title dark-blue"><span> User Login</span></v-card-title>
             <v-card-text style="padding: 25px;">
                 <v-form>
                     <v-row>

@@ -19,11 +19,11 @@ export const useExpenseStore = defineStore('expStore', {
             return response;
     },
         async addExpense(emp) {
-           const employee =  await ExpenseService.addExpense(emp);
-           if(employee){
-           this.expenses.push(employee);
+           const expense =  await ExpenseService.addExpense(emp);
+           if(expense){
+           this.expenses.push(expense);
            }
-           return employee;
+           return expense;
         },
 
         async updateExpense(expense) {
