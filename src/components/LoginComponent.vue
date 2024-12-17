@@ -102,6 +102,7 @@ console.log(encodedPassword);
    display: block;
     width: 30%;
     height: 80vh;
+    max-height: 90vh;
     border-radius: 20px;
 }
 .login-btn{

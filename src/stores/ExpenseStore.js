@@ -3,15 +3,15 @@ import { ExpenseService } from '@/services/ExpenseService';
 
 export const useExpenseStore = defineStore('expStore', {
     state: () => ({
-        employees:[],
+        expenses:[],
         pages:0
 }),
       
       actions: {
-        async getAllEmployees(pageNumber, userId) {
+        async getAllExpenses(pageNumber, userId) {
 
                 const page = await ExpenseService.getAllExpenses(pageNumber, userId);
-                this.employees = page.content;
+                this.expenses = page.content;
                 this.pages = page.totalPages;
         },
         async getExpensesReport(userId, type) {
@@ -21,7 +21,7 @@ export const useExpenseStore = defineStore('expStore', {
         async addExpense(emp) {
            const employee =  await ExpenseService.addExpense(emp);
            if(employee){
-           this.employees.push(employee);
+           this.expenses.push(employee);
            }
            return employee;
         },
@@ -29,9 +29,9 @@ export const useExpenseStore = defineStore('expStore', {
         async updateExpense(expense) {
             const exp = await ExpenseService.updateExpense(expense);
             if(exp){
-            const index = this.employees.findIndex((data) => data.id === expense.id);
+            const index = this.expenses.findIndex((data) => data.id === expense.id);
             if (index !== -1) {
-                this.employees[index] = { ...expense };
+                this.expenses[index] = { ...expense };
             } else {
                 this.error = 'Employee not found';
             }
@@ -40,12 +40,12 @@ export const useExpenseStore = defineStore('expStore', {
         },
         async deleteExpense(id) {
             ExpenseService.deleteExpense(id);
-            const index = this.employees.findIndex((emp) => emp.id === id);
-            this.employees.splice(index,1);
+            const index = this.expenses.findIndex((emp) => emp.id === id);
+            this.expenses.splice(index,1);
         },
         async searchExpenses(query) {
               const response = await ExpenseService.searchExpenses(query)
-             this.employees = response;
+             this.expenses = response;
           }
       },
 })

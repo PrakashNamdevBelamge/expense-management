@@ -20,6 +20,7 @@ const enableSave = ref(true)
 const onConfirm = ref(false);
 const titleMessage = ref('Are you sure you want to discard changes?')
 const buttonName = ref('Save');
+const header = ref('Create');
 const formDirty = ref(false);
 const backToList = (response) => {
     if (response == 'Yes') {
@@ -72,6 +73,10 @@ const formBuilder = ref({
             value => {
                 if (value) return true
                 return 'Title is required.'
+            },
+            value => {
+                if (value.trim().length>=10) return true
+                return 'Title length should be more than 10.'
             }
         ]
     },
@@ -105,9 +110,10 @@ const formBuilder = ref({
 if (router.currentRoute.value.params?.id) {
     id.value = router.currentRoute.value.params.id;
     buttonName.value = 'Update';
-    const employees = ref(expenseStore.employees);
-    const index = employees.value.findIndex(emp => emp.id == id.value);
-    const data = ref(employees.value[index]);
+    header.value = 'Update';
+    const expenses = ref(expenseStore.expenses);
+    const index = expenses.value.findIndex(emp => emp.id == id.value);
+    const data = ref(expenses.value[index]);
     formBuilder.value.title = { title: data.value.title }
     formBuilder.value.id = id
     formBuilder.value.amount = { amount: data.value.amount }
@@ -129,7 +135,7 @@ watch(formBuilder.value, (data) => {
     if (formBuilder.value.category.category == '') {
         count.value++;
     }
-    if (formBuilder.value.date.date == "") {
+    if (formBuilder.value.date.date == "" || formBuilder.value.date.date == null) {
         count.value++;
     }
 
@@ -158,7 +164,7 @@ const openDialog = () => {
 </div>
 
     <v-card>
-        <v-card-title class="card-title dark-blue">Create User Expense</v-card-title>
+        <v-card-title class="card-title dark-blue">{{header}} User Expense</v-card-title>
         <v-card-text class="card-text">
             <v-form @submit.prevent="save">
                 <v-row>
