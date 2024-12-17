@@ -1,5 +1,4 @@
 <script setup>
-import ExpenseList from './ExpenseList.vue'
 import ExpenseHeader from './ExpenseHeader.vue'
 </script>
 

@@ -18,25 +18,25 @@ const searchParam = ref('');
 const fromDate = ref(null);
 const toDate = ref(null);
 const isDisabled = ref(true);
-const employeeStore = useExpenseStore();
+const expensesStore = useExpenseStore();
 const onDeleteConfirm = ref(false);
 const deleteElement = ref('');
 const titleMessage = ref('Are you sure you want to delete expense?')
 const today = computed(() => new Date().toISOString().split('T')[0])
 
-const getEmployees = async () => {
-    await employeeStore.getAllEmployees(pageNumber.value, useUserStore.user[0].id);
+const getExpenses = async () => {
+    await expensesStore.getAllExpenses(pageNumber.value, useUserStore.user[0].id);
 }
 
-getEmployees();
+getExpenses();
 
-const editEmployee = (record) => {
+const editExpense = (record) => {
     router.push({ path: `/expenses/edit/${record.id}` })
 }
 
-const deleteEmployee = (response) => {
+const deleteExpense = (response) => {
     if (response == 'Yes') {
-        employeeStore.deleteExpense(deleteElement.value.id);
+        expensesStore.deleteExpense(deleteElement.value.id);
         deleteElement.value = '';
         toast.success('Employee deleted successfully');
     }
@@ -51,15 +51,15 @@ const deleteDialog = (record) => {
 const searchEmployee = debounce(function () {
     if (searchParam.value != "") {
         const query = `?userId=${useUserStore.user[0].id}&searchValue=${searchParam.value}`
-        employeeStore.searchExpenses(query);
+        expensesStore.searchExpenses(query);
     } else {
-        getEmployees()
+        getExpenses()
     }
 }, 1000)
 
 const onPageChange = (data)=>{
     pageNumber.value = data-1;
-    getEmployees();
+    getExpenses();
 }
 const categories = ['Keyword','DateRange']
 const categoryValue = ref('Keyword');
@@ -71,7 +71,7 @@ if(fromDate.value > toDate.value){
     toast.warning('From date should be less than toDate')
 } else {
     const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
-    employeeStore.searchExpenses(query);
+    expensesStore.searchExpenses(query);
 }
     }
 }
@@ -80,12 +80,12 @@ const onDate2Selected = (newDate) =>{
     toast.warning('From date should be less than toDate')
 }  else {
     const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
-    employeeStore.searchExpenses(query);
+    expensesStore.searchExpenses(query);
 }
 }
 
 const clearFilter = () =>{
-    getEmployees();
+    getExpenses();
 }
 
 </script>
@@ -113,7 +113,7 @@ const clearFilter = () =>{
                 
 
                 <v-text-field  variant="outlined" prepend-inner-icon="mdi-magnify" type="search" name="search"
-                    placeholder="Search employees" style="width: 100%;" aria-label="Search" v-model="searchParam"
+                    placeholder="Search expenses" style="width: 100%;" aria-label="Search" v-model="searchParam"
                     @input="searchEmployee" />
 
             </div>
@@ -149,20 +149,20 @@ const clearFilter = () =>{
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody v-if="employeeStore.employees && employeeStore.employees.length > 0">
-                    <tr v-for="employee in employeeStore.employees" :key="employee.id">
-                        <td>{{ employee.title }}</td>
-                        <td>{{ employee.category }}</td>
-                        <td>{{ employee.amount }}</td>
-                        <td>{{ employee.date }} </td>
+                <tbody v-if="expensesStore.expenses && expensesStore.expenses.length > 0">
+                    <tr v-for="expense in expensesStore.expenses" :key="expense.id">
+                        <td>{{ expense.title }}</td>
+                        <td>{{ expense.category }}</td>
+                        <td>{{ expense.amount }}</td>
+                        <td>{{ expense.date }} </td>
                         <td>
                             <span>
-                                <v-btn @click="editEmployee(employee)" class="icon" variant="text">
+                                <v-btn @click="editExpense(expense)" class="icon" variant="text">
                                     <font-awesome-icon icon="pen-to-square" />
                                 </v-btn>
                             </span>
                             <span>
-                                <v-btn variant="text" @click="deleteDialog(employee)" class="icon">
+                                <v-btn variant="text" @click="deleteDialog(expense)" class="icon">
                                     <font-awesome-icon icon="trash" />
                                 </v-btn> </span>
                         </td>
@@ -170,12 +170,12 @@ const clearFilter = () =>{
                 </tbody>
             </v-table>
             <div class="text-center">
-                <v-pagination style="justify-content: end;" :length="employeeStore.pages" rounded="circle" @update:modelValue="onPageChange"></v-pagination>
+                <v-pagination style="justify-content: end;" :length="expensesStore.pages" rounded="circle" @update:modelValue="onPageChange"></v-pagination>
             </div>
         </v-card>
     </div>
 
-    <ConfirmDialog v-if="onDeleteConfirm" @confirm="deleteEmployee" :title="titleMessage" :openBox="onDeleteConfirm" />
+    <ConfirmDialog v-if="onDeleteConfirm" @confirm="deleteExpense" :title="titleMessage" :openBox="onDeleteConfirm" />
 </template>
 <style scoped>
 .create-btn-container {

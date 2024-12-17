@@ -23,11 +23,9 @@ const reports = () =>{
     <v-card class="mx-auto" style="z-index: 999;box-shadow: none;" max-width="448">
         <v-layout>
             <v-app-bar color="primary" density="compact">
-                <template v-slot:prepend>
-                    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-                </template>
+               
 
-                <v-app-bar-title>Expense Management System</v-app-bar-title>
+                <v-app-bar-title>Expense Tracker Application</v-app-bar-title>
                 <v-menu>
                                      <template v-slot:activator="{ props }">
                                         <v-btn @click="reports" class="report-btn" >

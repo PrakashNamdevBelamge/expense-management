@@ -1,9 +1,9 @@
-import ExpenseCreate from "@/components/ExpenseCreate.vue";
-import ExpenseList from "@/components/ExpenseList.vue";
+import ExpenseFormComponent from "@/components/ExpenseFormComponent.vue";
+import ExpenseListComponent from "@/components/ExpenseListComponent.vue";
 import ExpenseMain from "@/components/ExpenseMain.vue";
-import ExpenseReports from "@/components/ExpenseReports.vue";
+import ReportComponent from "@/components/ReportComponent.vue";
 import ForgotPassword from "@/components/ForgotPassword.vue";
-import Login from "@/components/Login.vue";
+import LoginComponent from "@/components/LoginComponent.vue";
 import NewUser from "@/components/NewUser.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -15,8 +15,7 @@ const router = createRouter({
     {
       path: "/login",
       name: "login",
-      component: Login,
-
+      component: LoginComponent,
     },
     {
       path: "/newuser",
@@ -37,22 +36,22 @@ const router = createRouter({
         {
           path: "",
           name: "list",
-          component: ExpenseList,
+          component: ExpenseListComponent,
         },
         {
           path: "create",
           name: "create",
-          component: ExpenseCreate,
+          component: ExpenseFormComponent,
         },
         {
           path: "edit/:id",
           name: "edit",
-          component: ExpenseCreate,
+          component: ExpenseFormComponent,
         },
         {
           path: "reports",
           name: "reports",
-          component: ExpenseReports,
+          component: ReportComponent,
         },
       ]
     },

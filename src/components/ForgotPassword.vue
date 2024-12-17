@@ -57,14 +57,14 @@ const cancel = () =>{
                     </v-row>
                     <v-row>
                         <v-col>
-                            <label> Password</label>
+                            <label>New Password</label>
                             <v-text-field type="password" variant="outlined" name="password" v-model="formBuild.password.password"
-                                placeholder="Please enter password" :rules="formBuild.password.rule" />
+                                placeholder="Please enter new password" :rules="formBuild.password.rule" />
                         </v-col>
                     </v-row>
 
                     <div class="btn">
-                        <v-btn variant="outlined" class="success-btn" @click="updatePassword" style="padding: 5px 30px;">Save</v-btn>
+                        <v-btn variant="outlined" class="success-btn" @click="updatePassword" >Update</v-btn>
                         <v-btn variant="outlined" class="cancel-btn" @click="cancel">Cancel</v-btn>
                     </div>
 

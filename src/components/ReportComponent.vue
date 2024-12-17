@@ -7,7 +7,7 @@
             
   </div>
     <v-card>
-      <v-card-title class="card-title dark-blue">Expense Report</v-card-title>
+      <v-card-title class="card-title dark-blue">Expense Report Current Month</v-card-title>
 
       <canvas id="pieChart"></canvas>
     </v-card>
