@@ -8,8 +8,7 @@ import ExpenseHeader from './ExpenseHeader.vue'
     <ExpenseHeader />
   </section>
     <section>
-        <ExpenseList />
-        <router-view></router-view>
+      <router-view></router-view>
     </section>
 </template>
 <style>

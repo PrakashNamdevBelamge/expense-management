@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
+import { userStore } from '../stores/UserStore'
 
+const useUserStore = userStore();
+const userName = ref(useUserStore.user[0].userName.slice(0,2))
 const router = useRouter();
 const logOut = () =>{
-    console.log('logout')
     router.push({path:'/login'})
 }
 
@@ -31,7 +33,7 @@ const reports = () =>{
                                         <v-btn @click="reports" class="report-btn" >
                     Expense Reports
                 </v-btn>  
-                        <span class="logo">PN</span>
+                        <span class="logo">{{ userName.toUpperCase() }}</span>
                         <v-btn icon="mdi-dots-vertical" variant="text" v-bind="props"></v-btn>
                     </template>
                     <v-list>
