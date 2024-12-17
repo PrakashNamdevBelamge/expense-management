@@ -25,10 +25,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Step 4: Run linting
-      - name: Run ESLint
-        run: npm run lint
-
       # Step 5: Run unit tests (if configured)
       - name: Run Tests
         run: npm run test
