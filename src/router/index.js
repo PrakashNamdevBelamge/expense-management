@@ -7,8 +7,6 @@ import LoginComponent from "@/components/LoginComponent.vue";
 import NewUser from "@/components/NewUser.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
-
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -31,7 +29,7 @@ const router = createRouter({
       path: "/expenses",
       name: "home",
       component: ExpenseMain,
-      
+
       children: [
         {
           path: "",
@@ -53,7 +51,7 @@ const router = createRouter({
           name: "reports",
           component: ReportComponent,
         },
-      ]
+      ],
     },
     {
       path: "/:pathMatch(.*)*",
@@ -63,7 +61,7 @@ const router = createRouter({
   ],
 });
 router.beforeEach((to, from, next) => {
-  const authStore = localStorage.getItem('userData') ? true : false;
+  const authStore = localStorage.getItem("userData") ? true : false;
   const publicPaths = ["/login", "/newuser", "/forgotpassword"];
 
   if (!publicPaths.includes(to.path) && !authStore) {

@@ -3,12 +3,11 @@ import ExpenseHeader from './ExpenseHeader.vue'
 </script>
 
 <template>
-      <section>
+  <section>
     <ExpenseHeader />
   </section>
-    <section>
-      <router-view></router-view>
-    </section>
+  <section>
+    <router-view></router-view>
+  </section>
 </template>
-<style>
-</style>
+<style></style>
