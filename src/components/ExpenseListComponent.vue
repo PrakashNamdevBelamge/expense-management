@@ -13,7 +13,6 @@ const router = useRouter();
 const pageNumber = ref(0);
 const toast = useToast()
 const isDisableList = ref(false)
-const editData = ref({});
 const searchParam = ref('');
 const fromDate = ref(null);
 const toDate = ref(null);
@@ -57,34 +56,34 @@ const searchEmployee = debounce(function () {
     }
 }, 1000)
 
-const onPageChange = (data)=>{
-    pageNumber.value = data-1;
+const onPageChange = (data) => {
+    pageNumber.value = data - 1;
     getExpenses();
 }
-const categories = ['Keyword','DateRange']
+const categories = ['Keyword', 'DateRange']
 const categoryValue = ref('Keyword');
 
-const onDate1Selected = (newDate) =>{
+const onDate1Selected = (newDate) => {
     isDisabled.value = false;
-    if(toDate.value != null){
-if(fromDate.value > toDate.value){
-    toast.warning('From date should be less than toDate')
-} else {
-    const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
-    expensesStore.searchExpenses(query);
-}
+    if (toDate.value != null) {
+        if (fromDate.value > toDate.value) {
+            toast.warning('From date should be less than toDate')
+        } else {
+            const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
+            expensesStore.searchExpenses(query);
+        }
     }
 }
-const onDate2Selected = (newDate) =>{
-    if(fromDate.value > toDate.value){
-    toast.warning('From date should be less than toDate')
-}  else {
-    const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
-    expensesStore.searchExpenses(query);
-}
+const onDate2Selected = (newDate) => {
+    if (fromDate.value > toDate.value) {
+        toast.warning('From date should be less than toDate')
+    } else {
+        const query = `?userId=${useUserStore.user[0].id}&fromDate=${new Date(fromDate.value).toISOString().split('T')[0]}&toDate=${new Date(toDate.value).toISOString().split('T')[0]}`
+        expensesStore.searchExpenses(query);
+    }
 }
 
-const clearFilter = () =>{
+const clearFilter = () => {
     getExpenses();
 }
 
@@ -103,39 +102,40 @@ const clearFilter = () =>{
             </RouterLink>
         </div>
         <v-card style="padding: 10px 5px;">
-          <div style="display: flex; justify-content: flex-start;">
-           
+            <div style="display: flex; justify-content: flex-start;">
+
                 <div style="width: 20%;padding-right: 5px;">
-            <v-select variant="outlined" style="width: 100%;" name="categoryValue" v-model="categoryValue"
-            :items="categories" />
+                    <v-select variant="outlined" style="width: 100%;" name="categoryValue" v-model="categoryValue"
+                        :items="categories" />
                 </div>
-            <div v-if="categoryValue == 'Keyword'" style="width: 20%;">
-                
+                <div v-if="categoryValue == 'Keyword'" style="width: 20%;">
 
-                <v-text-field  variant="outlined" prepend-inner-icon="mdi-magnify" type="search" name="search"
-                    placeholder="Search expenses" style="width: 100%;" aria-label="Search" v-model="searchParam"
-                    @input="searchEmployee" />
 
-            </div>
-            <div v-if="categoryValue == 'DateRange'" style="width: 20%;">
-                
+                    <v-text-field variant="outlined" prepend-inner-icon="mdi-magnify" type="search" name="search"
+                        placeholder="Search expenses" style="width: 100%;" aria-label="Search" v-model="searchParam"
+                        @input="searchEmployee" />
 
-                <v-date-input  variant="outlined"   name="fromDate" :max="today"
-                    placeholder="enter from date yyyy-MM-dd" style="width: 100%;"  v-model="fromDate" @update:model-value="onDate1Selected"
-                     prepend-icon="" append-inner-icon="$calendar"/>
+                </div>
+                <div v-if="categoryValue == 'DateRange'" style="width: 20%;">
+
+
+                    <v-date-input variant="outlined" name="fromDate" :max="today"
+                        placeholder="enter from date yyyy-MM-dd" style="width: 100%;" v-model="fromDate"
+                        @update:model-value="onDate1Selected" prepend-icon="" append-inner-icon="$calendar" />
                 </div>
                 <div v-if="categoryValue == 'DateRange'" style="width: 20%;margin-left: 5px;">
 
-                    <v-date-input  variant="outlined" :disabled="isDisabled"  name="toDate" :max="today"
-                    placeholder="enter to date yyyy-MM-dd" style="width: 100%;" v-model="toDate"  @update:model-value="onDate2Selected"
-                    prepend-icon="" append-inner-icon="$calendar"/>
-</div>
-<div>
-    <v-btn variant="outlined" class="clear-btn" @click="clearFilter" style="padding: 10px 10px;margin-right: 20px;">
-                    Clear Filter
-                </v-btn>
-</div>
-                
+                    <v-date-input variant="outlined" :disabled="isDisabled" name="toDate" :max="today"
+                        placeholder="enter to date yyyy-MM-dd" style="width: 100%;" v-model="toDate"
+                        @update:model-value="onDate2Selected" prepend-icon="" append-inner-icon="$calendar" />
+                </div>
+                <div>
+                    <v-btn variant="outlined" class="clear-btn" @click="clearFilter"
+                        style="padding: 10px 10px;margin-right: 20px;">
+                        Clear Filter
+                    </v-btn>
+                </div>
+
             </div>
 
             <v-table height="300px" fixed-header>
@@ -145,7 +145,7 @@ const clearFilter = () =>{
                         <th>Category</th>
                         <th>Amount</th>
                         <th>Date</th>
-                        
+
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -170,7 +170,8 @@ const clearFilter = () =>{
                 </tbody>
             </v-table>
             <div class="text-center">
-                <v-pagination style="justify-content: end;" :length="expensesStore.pages" rounded="circle" @update:modelValue="onPageChange"></v-pagination>
+                <v-pagination style="justify-content: end;" :length="expensesStore.pages" rounded="circle"
+                    @update:modelValue="onPageChange"></v-pagination>
             </div>
         </v-card>
     </div>
@@ -211,7 +212,8 @@ td {
     padding: 2px 20px;
     font-weight: 600;
 }
-.clear-btn{
+
+.clear-btn {
     height: 55px;
     background-color: aliceblue;
     margin-left: 5px;

@@ -20,8 +20,8 @@ const formBuild = ref({
                 if (value) return true
                 return 'Email is required.'
             },
-            value=>{
-                if(value.match('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')) return true;
+            value => {
+                if (value.match('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')) return true;
                 return "Please enter valid email"
             }
         ]
@@ -40,22 +40,22 @@ const formBuild = ref({
     }
 })
 
-const createUser = () =>{
-    const encodedPassword = btoa(formBuild.value.password.password); 
+const createUser = () => {
+    const encodedPassword = btoa(formBuild.value.password.password);
 
     const data = {
-        userName:formBuild.value.name.name,
-        email:formBuild.value.email.email,
+        userName: formBuild.value.name.name,
+        email: formBuild.value.email.email,
         password: encodedPassword
     }
-    useUserStore.addUser(data).then(res=>{
-        if(res)
-        router.push({path:'/login'})
+    useUserStore.addUser(data).then(res => {
+        if (res)
+            router.push({ path: '/login' })
     })
 }
 
-const cancel = () =>{
-    router.push({path:'/login'})
+const cancel = () => {
+    router.push({ path: '/login' })
 }
 </script>
 <template>
@@ -82,13 +82,15 @@ const cancel = () =>{
                     <v-row>
                         <v-col>
                             <label> Password</label>
-                            <v-text-field type="password" variant="outlined" name="password" v-model="formBuild.password.password"
-                                placeholder="Please enter password" :rules="formBuild.password.rule" />
+                            <v-text-field type="password" variant="outlined" name="password"
+                                v-model="formBuild.password.password" placeholder="Please enter password"
+                                :rules="formBuild.password.rule" />
                         </v-col>
                     </v-row>
 
                     <div class="btn">
-                        <v-btn variant="outlined" class="success-btn" @click="createUser" style="padding: 5px 30px;">Save</v-btn>
+                        <v-btn variant="outlined" class="success-btn" @click="createUser"
+                            style="padding: 5px 30px;">Save</v-btn>
                         <v-btn variant="outlined" class="cancel-btn" @click="cancel">Cancel</v-btn>
                     </div>
 
@@ -100,8 +102,7 @@ const cancel = () =>{
 
 </template>
 <style scoped>
-
-.container{
+.container {
     padding-top: 20px;
     width: 100%;
     display: flex;
@@ -109,32 +110,33 @@ const cancel = () =>{
 }
 
 
-.card-title{
+.card-title {
     font-weight: bold;
-   padding-left: 25px;
+    padding-left: 25px;
 }
 
-.card-width{
-   display: block;
+.card-width {
+    display: block;
     width: 40%;
     height: 90vh;
     border-radius: 20px;
 }
-.login-btn{
+
+.login-btn {
     width: 350px;
     background-color: blue;
     color: white;
 }
-.footer{
+
+.footer {
     display: flex;
     justify-content: space-around;
 }
 
-.btn{
+.btn {
     padding-top: 25px;
     display: flex;
     justify-content: end;
-    
-}
-</style> 
 
+}
+</style>

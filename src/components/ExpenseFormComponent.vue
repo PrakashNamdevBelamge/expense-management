@@ -15,7 +15,7 @@ const emit = defineEmits(['response', 'save'])
 const editEmployeeProps = defineProps(['editData']);
 const today = computed(() => new Date().toISOString().split('T')[0])
 const toast = useToast()
-const categories = ref(['FOOD', 'TRANSPORT','UTILITIES', 'ENTERTAIMENT','MISCELLANEOUS']);
+const categories = ref(['FOOD', 'TRANSPORT', 'UTILITIES', 'ENTERTAIMENT', 'MISCELLANEOUS']);
 const enableSave = ref(true)
 const onConfirm = ref(false);
 const titleMessage = ref('Are you sure you want to discard changes?')
@@ -43,12 +43,12 @@ const save = () => {
 }
 
 const saveRecord = (data) => {
-    
+
     if (data.id) {
         const response = expenseStore.updateExpense(data);
         response.then(res => {
             if (res) {
-                toast.success("User expense  updated successfully")
+                toast.success("User expense updated successfully")
                 router.push({ path: '/expenses' });
 
 
@@ -57,7 +57,7 @@ const saveRecord = (data) => {
     } else {
         const response = expenseStore.addExpense(data);
         response.then(res => {
-            
+
             if (res) {
                 toast.success("User expense created successfully")
                 router.push({ path: '/expenses' });
@@ -75,7 +75,7 @@ const formBuilder = ref({
                 return 'Title is required.'
             },
             value => {
-                if (value.trim().length>=10) return true
+                if (value.trim().length >= 10) return true
                 return 'Title length should be more than 10.'
             }
         ]
@@ -98,7 +98,7 @@ const formBuilder = ref({
         ]
     },
     date: {
-        date: null,  rule: [
+        date: null, rule: [
             value => {
                 if (value) return true
                 return 'Expense date is required.'
@@ -159,12 +159,12 @@ const openDialog = () => {
 </script>
 <template>
     <div style="padding: 60px 10px 10px 10px;">
-    <h4 @click="openDialog" class="dark-blue">  <- back to list  </h4>
-   
-</div>
+        <h4 @click="openDialog" class="dark-blue"> <- back to list </h4>
+
+    </div>
 
     <v-card>
-        <v-card-title class="card-title dark-blue">{{header}} User Expense</v-card-title>
+        <v-card-title class="card-title dark-blue">{{ header }} User Expense</v-card-title>
         <v-card-text class="card-text">
             <v-form @submit.prevent="save">
                 <v-row>
@@ -187,9 +187,8 @@ const openDialog = () => {
                     </v-col>
                     <v-col cols="4">
                         <label>Expense Date</label>
-                        <v-date-input variant="outlined" name="date" :max="today"
-                            :rules="formBuilder.date.rule" v-model="formBuilder.date.date"
-                            prepend-icon="" append-inner-icon="$calendar" />
+                        <v-date-input variant="outlined" name="date" :max="today" :rules="formBuilder.date.rule"
+                            v-model="formBuilder.date.date" prepend-icon="" append-inner-icon="$calendar" />
                     </v-col>
                 </v-row>
 

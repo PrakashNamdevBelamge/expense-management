@@ -24,19 +24,19 @@ const formBuild = ref({
         ]
     }
 })
-const login = () =>{
-    const encodedPassword = btoa(formBuild.value.password.password); 
-console.log(encodedPassword);
+const login = () => {
+    const encodedPassword = btoa(formBuild.value.password.password);
+    console.log(encodedPassword);
     const data = {
-        userName:formBuild.value.name.name,
-        password:encodedPassword
+        userName: formBuild.value.name.name,
+        password: encodedPassword
     }
-    useUserStore.validateUser(data).then(res=>{
-        console.log('----------------',res);
-    if(res){
-        localStorage.setItem('userData',JSON.stringify(res));
-    router.push({path:'/expenses'});
-    }
+    useUserStore.validateUser(data).then(res => {
+        console.log('----------------', res);
+        if (res) {
+            localStorage.setItem('userData', JSON.stringify(res));
+            router.push({ path: '/expenses' });
+        }
     })
 
 }
@@ -59,8 +59,9 @@ console.log(encodedPassword);
                     <v-row>
                         <v-col>
                             <label> Password</label>
-                            <v-text-field type="password" variant="outlined" name="password" v-model="formBuild.password.password"
-                                placeholder="Please enter password" :rules="formBuild.password.rule" />
+                            <v-text-field type="password" variant="outlined" name="password"
+                                v-model="formBuild.password.password" placeholder="Please enter password"
+                                :rules="formBuild.password.rule" />
                         </v-col>
                     </v-row>
 
@@ -72,20 +73,19 @@ console.log(encodedPassword);
                 </v-form>
             </v-card-text>
             <div class="footer">
-    <RouterLink to="/newuser">
-        Register new user?
-    </RouterLink>
-    <RouterLink to="/forgotpassword">
-        Forgot password?
-    </RouterLink>
-</div>
+                <RouterLink to="/newuser">
+                    Register new user?
+                </RouterLink>
+                <RouterLink to="/forgotpassword">
+                    Forgot password?
+                </RouterLink>
+            </div>
         </v-card>
     </div>
 
 </template>
 <style scoped>
-
-.container{
+.container {
     padding-top: 4%;
     width: 100%;
     display: flex;
@@ -93,26 +93,27 @@ console.log(encodedPassword);
 }
 
 
-.card-title{
+.card-title {
     font-weight: bold;
-   padding-left: 25px;
+    padding-left: 25px;
 }
 
-.card-width{
-   display: block;
+.card-width {
+    display: block;
     width: 30%;
     height: 80vh;
     max-height: 90vh;
     border-radius: 20px;
 }
-.login-btn{
+
+.login-btn {
     width: 350px;
     background-color: blue;
     color: white;
 }
-.footer{
+
+.footer {
     display: flex;
     justify-content: space-around;
 }
-</style> 
-
+</style>

@@ -12,8 +12,8 @@ const formBuild = ref({
                 if (value) return true
                 return 'Email is required.'
             },
-            value=>{
-                if(value.match('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')) return true;
+            value => {
+                if (value.match('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$')) return true;
                 return "Please enter valid email"
             }
         ]
@@ -27,18 +27,18 @@ const formBuild = ref({
         ]
     }
 })
-const updatePassword = () =>{
+const updatePassword = () => {
     const data = {
-        email:formBuild.value.email.email,
-        password:formBuild.value.password.password
+        email: formBuild.value.email.email,
+        password: formBuild.value.password.password
     }
-    useUserStore.updatePassword(data).then(res=>{
-        if(res)
-        router.push({path:'/login'});
+    useUserStore.updatePassword(data).then(res => {
+        if (res)
+            router.push({ path: '/login' });
     })
 }
-const cancel = () =>{
-    router.push({path:'/login'})
+const cancel = () => {
+    router.push({ path: '/login' })
 }
 </script>
 <template>
@@ -58,13 +58,14 @@ const cancel = () =>{
                     <v-row>
                         <v-col>
                             <label>New Password</label>
-                            <v-text-field type="password" variant="outlined" name="password" v-model="formBuild.password.password"
-                                placeholder="Please enter new password" :rules="formBuild.password.rule" />
+                            <v-text-field type="password" variant="outlined" name="password"
+                                v-model="formBuild.password.password" placeholder="Please enter new password"
+                                :rules="formBuild.password.rule" />
                         </v-col>
                     </v-row>
 
                     <div class="btn">
-                        <v-btn variant="outlined" class="success-btn" @click="updatePassword" >Update</v-btn>
+                        <v-btn variant="outlined" class="success-btn" @click="updatePassword">Update</v-btn>
                         <v-btn variant="outlined" class="cancel-btn" @click="cancel">Cancel</v-btn>
                     </div>
 
@@ -76,8 +77,7 @@ const cancel = () =>{
 
 </template>
 <style scoped>
-
-.container{
+.container {
     padding-top: 20px;
     width: 100%;
     display: flex;
@@ -85,32 +85,33 @@ const cancel = () =>{
 }
 
 
-.card-title{
+.card-title {
     font-weight: bold;
-   padding-left: 25px;
+    padding-left: 25px;
 }
 
-.card-width{
-   display: block;
+.card-width {
+    display: block;
     width: 40%;
     min-height: 70vh;
     border-radius: 20px;
 }
-.login-btn{
+
+.login-btn {
     width: 350px;
     background-color: blue;
     color: white;
 }
-.footer{
+
+.footer {
     display: flex;
     justify-content: space-around;
 }
 
-.btn{
+.btn {
     padding-top: 25px;
     display: flex;
     justify-content: end;
-    
-}
-</style> 
 
+}
+</style>
